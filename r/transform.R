@@ -2,7 +2,8 @@ library(dplyr)
 library(rCharts)
 library(ggplot2)
 
-setwd("~/R/netflow-dev")
+#setwd("~/R/netflow-dev")
+setwd("~/Documents/Code/netflow-dev/data/")
 list.files()
 
 df = read.csv("testdata-epoch.csv",stringsAsFactors = FALSE)
@@ -25,10 +26,12 @@ countByHour <- df %>%
 
 countByHour
 
+# rChart with no std
 p6 <- nPlot(count ~ startHour, data = countByHour, type = 'lineChart')
 p6
 
-ggplot(countByHour, aes(x=startHour, y=count)) + 
+# ggplot with 2 std
+ggplot(countByHour, aes(x=startHour, y=count, group=1)) + 
   geom_errorbar(aes(ymin=lcl, ymax=ucl), width=.1) +
   geom_line() +
   geom_point()
